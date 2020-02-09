@@ -6,6 +6,7 @@ var pressure = [];
 var description = [];
 var lon = [36.080276, 38.01667];
 var lat = [52.965832, 54.866669];
+
 jQuery(document).ready(function ($) {
     for (var k = 0; k < lon.length; k++) {
         console.log(k);
@@ -14,7 +15,11 @@ jQuery(document).ready(function ($) {
             dataType: 'json',
             success: function (data) {
                 console.log(data);
-                temp.push(Math.round(data.main.temp));
+                if (Math.round(data.main.temp) > 0) {
+                    temp.push('+' + Math.round(data.main.temp));
+                } else {
+                    temp.push(Math.round(data.main.temp));
+                }
                 humidity.push(data.main.humidity);
                 speed.push(data.wind.speed);
                 pressure.push(data.main.pressure);
